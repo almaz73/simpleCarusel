@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        body {
+            background: #111;
+
+        }
+
+        .carusel {
+            position: relative;
+            display: inline-block;
+        }
+
+        .carusel__window {
+            display: flex;
+            gap: 300px;
+            width: 500px;
+            overflow: hidden;
+            scroll-snap-type: x mandatory;
+        }
+
+        .carusel__slide {
+            min-width: 440px;
+            border: 2px solid gray;
+            height: 200px;
+            background: #222;
+            color: wheat;
+            padding: 26px;
+            scroll-snap-align: center;
+        }
+
+        .carusel__left, .carusel__right {
+            width: 60px;
+            background: #eee;
+            height: 100%;
+            position: absolute;
+            opacity: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 0.3s;
+            cursor: pointer;
+        }
+
+        .carusel__right {
+            right: 0;
+        }
+
+        .carusel__left:hover, .carusel__right:hover {
+            opacity: 0.01;
+        }
+    </style>
+</head>
+<body>
+
+<div class="carusel">
+    <div class="carusel__left" onclick="move('left')"> ◀</div>
+    <div class="carusel__window">
+        <div class="carusel__slide">1 Lorem ipsum.</div>
+        <div class="carusel__slide">2 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Esse, quas!</div>
+        <div class="carusel__slide">3 Lorem ipsum.</div>
+        <div class="carusel__slide">4 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Esse, magnam</div>
+        <div class="carusel__slide">5 Lorem ipsum dolor sit amet.</div>
+        <div class="carusel__right" onclick="move('right')">►</div>
+    </div>
+</div>
+
+<script>
+    let caruselDiv = document.querySelector('.carusel__window')
+
+    function move(val) {
+        let x = caruselDiv.scrollLeft
+        if (val === 'left' && x > 0) x -= 500
+        if (val === 'right' && x < caruselDiv.scrollWidth) x += 500
+        caruselDiv.scrollTo({left: x, behavior: 'smooth'})
+    }
+</script>
+</body>
+</html>
